@@ -64,4 +64,4 @@ __*contributors*__
 [email](https://mail.google.com/mail/emusyoka759@gmail.com "ChaloEmail") | [twitter](https://twitter.com/gavcarter4 "ChaloTwitter") | [LinkedIn](linkedin.com/in/emmanuel-chalo-211336183 "ChaloLinkedIn")
 
 * Chizoba Ugwuoke</br>
-[email](https://mail.google.com/upc4you@gmail.com "ChizobaEmail")
+[email](https://mail.google.com/mail/upc4you@gmail.com "ChizobaEmail")
