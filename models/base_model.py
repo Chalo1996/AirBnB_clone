@@ -8,29 +8,30 @@ import uuid
 from datetime import datetime
 
 
-formated_time = "%Y-%m-%dT%H:%M:%S.%f"
+date_fmt = "%Y-%m-%dT%H:%M:%S.%f"
 now = datetime.now()
 
 
 class BaseModel:
     """Defines all common attributes/methods for other classes
     """
+
     def __init__(self, *args, **kwargs):
         """BaseModel Class Constructor
         """
         if kwargs:
-            for k, v in kwargs.items():
-                if v is not self.__class__.__name__:
-                    self.__dict__[k] = v
-            if hasattr(self, "created_at") and type(self.created_at) is str:
-                self.created_at = datetime.strptime(
-                    kwargs["created_at"], formated_time
-                )
-
-            if hasattr(self, "updated_at") and type(self.updated_at) is str:
-                self.updated_at = datetime.strptime(
-                    kwargs["updated_at"], formated_time
-                )
+            del kwargs["__class__"]
+            self.id = kwargs["id"]
+            str_created_at = kwargs["created_at"]
+            str_updated_at = kwargs["updated_at"]
+            to_iso_created_at = datetime.strptime(
+                str_created_at, date_fmt
+            )
+            to_iso_updated_at = datetime.strptime(
+                str_updated_at, date_fmt
+            )
+            self.created_at = to_iso_created_at
+            self.updated_at = to_iso_updated_at
 
         else:
             id = uuid.uuid4()
@@ -44,8 +45,8 @@ class BaseModel:
         """Returns a neatly formated string representation
         """
         str_repr = "[{:s}] ({:s}) {}".format(
-                                        self.__class__.__name__,
-                                        self.id, self.__dict__)
+            self.__class__.__name__,
+            self.id, self.__dict__)
         return str_repr
 
     def save(self):
@@ -60,15 +61,9 @@ class BaseModel:
             of __dict__ of the instance
         """
         my_dict = self.__dict__.copy()
-        if "created_at" in my_dict:
-            my_dict["created_at"] = my_dict["created_at"].strftime(
-                formated_time
-            )
-
-        if "updated_at" in my_dict:
-            my_dict["updated_at"] = my_dict["updated_at"].strftime(
-                formated_time
-            )
-
+        iso_created_at = my_dict['created_at'].isoformat()
+        iso_updated_at = my_dict['updated_at'].isoformat()
+        my_dict['created_at'] = iso_created_at
+        my_dict['updated_at'] = iso_updated_at
         my_dict["__class__"] = self.__class__.__name__
         return (my_dict)

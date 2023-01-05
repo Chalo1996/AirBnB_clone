@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Contains the FileStorage
+"""FileStorage BaseModel to handle serialization and deserialization of objects.
 """
 
 
@@ -21,6 +21,10 @@ classes = {
 
 class FileStorage:
     """Serializes and deserializes instances
+
+    The attributes:
+        __file_path: string - path to the json file
+        __objects: dictionary - dictionary storing all the models
     """
     __file_path = "file.json"
     __objects = dict()
@@ -33,31 +37,38 @@ class FileStorage:
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id
         """
+        obj_name = obj.__class__.__name__
+        obj_id = obj.id
+        obj_repr = "{}.{}".format(obj_name, obj_id)
         if obj is not None:
-            obj_name = "{}.{}".format(obj.__class__.__name__, obj.id)
-            self.__objects[obj_name] = obj
+            self.__objects[obj_repr] = obj
 
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)
         """
         all_obj = dict()
-        for k in self.__objects:
-            all_obj[k] = self.__objects[k].to_dict()
+
+        for k, v in self.__objects.items():
+            all_obj[k] = v.to_dict()
+
+        a_dict = json.dumps(all_obj, indent=4)
 
         with open(self.__file_path, "w", encoding="utf-8") as f:
-            json.dump(all_obj, f)
+            f.write(a_dict)
 
     def reload(self):
         """deserializes the JSON file to __objects
         """
+        file_name = self.__file_path
         try:
-            with open(self.__file_path, "r") as f:
-                jsn_file = json.load(f)
+            with open(file_name, "r", encoding="utf-8") as f:
+                str_json = f.read()
+                dict_obj = json.loads(str_json)
 
-            for k in jsn_file:
-                self.__objects[k] = classes[jsn_file[k]["__class__"]](
-                    **jsn_file[k]
-                )
+                for k in dict_obj:
+                    self.__objects[k] = classes[dict_obj[k]["__class__"]](
+                        **dict_obj[k]
+                    )
 
         except FileNotFoundError:
             pass
