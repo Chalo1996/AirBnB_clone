@@ -7,6 +7,7 @@ import cmd
 import os
 import shlex
 from datetime import datetime
+from cmd import sys
 
 import models
 from models.amenity import Amenity
@@ -44,7 +45,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return False
         print(my_instance.id)
-        my_instance.save()
+        BaseModel.save()
 
     def do_show(self, args):
         """Prints the string representation of an instance
@@ -171,12 +172,23 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, line):
         """Quit command to exit the program
         """
-        return True
+        while True:
+            sys.exit()
 
     def do_EOF(self, line):
         """Exits the console
         """
-        return True
+        while True:
+            sys.exit()
+
+    def emptyline(arg) -> bool:
+        """Do nothing.
+
+        An empty line + ENTER does nothing.
+        """
+        while True:
+            if arg:
+                break
 
 
 if __name__ == "__main__":

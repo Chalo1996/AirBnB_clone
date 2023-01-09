@@ -20,8 +20,6 @@ class BaseModel:
         """BaseModel Class Constructor
         """
         if kwargs:
-            del kwargs["__class__"]
-            self.id = kwargs["id"]
             str_created_at = kwargs["created_at"]
             str_updated_at = kwargs["updated_at"]
             to_iso_created_at = datetime.strptime(
@@ -30,8 +28,13 @@ class BaseModel:
             to_iso_updated_at = datetime.strptime(
                 str_updated_at, date_fmt
             )
-            self.created_at = to_iso_created_at
-            self.updated_at = to_iso_updated_at
+            kwargs['create_at'] = to_iso_created_at
+            kwargs['updated_at'] = to_iso_updated_at
+
+            for k, v in kwargs.items():
+                if k == '__class__':
+                    continue
+                setattr(self, k, v)
 
         else:
             id = uuid.uuid4()
