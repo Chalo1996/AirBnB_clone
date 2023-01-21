@@ -51,7 +51,7 @@ class FileStorage:
         for k, v in self.__objects.items():
             all_obj[k] = v.to_dict()
 
-        a_dict = json.dumps(all_obj, indent=4)
+        a_dict = json.dumps(all_obj)
 
         with open(self.__file_path, "w", encoding="utf-8") as f:
             f.write(a_dict)

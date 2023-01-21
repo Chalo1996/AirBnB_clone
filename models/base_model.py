@@ -5,11 +5,11 @@
 
 import models
 import uuid
-from datetime import datetime
+import datetime
 
 
 date_fmt = "%Y-%m-%dT%H:%M:%S.%f"
-now = datetime.now()
+now = datetime.datetime.now()
 
 
 class BaseModel:
@@ -22,25 +22,24 @@ class BaseModel:
         if kwargs:
             str_created_at = kwargs["created_at"]
             str_updated_at = kwargs["updated_at"]
-            to_iso_created_at = datetime.strptime(
+            to_iso_created_at = datetime.datetime.strptime(
                 str_created_at, date_fmt
             )
-            to_iso_updated_at = datetime.strptime(
+            to_iso_updated_at = datetime.datetime.strptime(
                 str_updated_at, date_fmt
             )
-            kwargs['create_at'] = to_iso_created_at
+            kwargs['created_at'] = to_iso_created_at
             kwargs['updated_at'] = to_iso_updated_at
 
             for k, v in kwargs.items():
-                if k == '__class__':
-                    continue
-                setattr(self, k, v)
+                if k != '__class__':
+                    setattr(self, k, v)
 
         else:
             id = uuid.uuid4()
             self.id = str(id)
             self.created_at = now
-            self.updated_at = self.created_at
+            self.updated_at = now
             models.storage.new(self)
             models.storage.save()
 
