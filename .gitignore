@@ -1,3 +1,5 @@
 kite-installer
 *.pyc
 .gitignore
+file.json
+

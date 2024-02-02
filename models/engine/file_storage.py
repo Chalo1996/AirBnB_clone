@@ -1,8 +1,10 @@
 #!/usr/bin/python3
-"""FileStorage BaseModel to handle serialization and deserialization of objects.
+"""FileStorage BaseModel to handle serialization and\
+    deserialization of objects.
 """
 
 
+import os
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -27,7 +29,7 @@ class FileStorage:
         __objects: dictionary - dictionary storing all the models
     """
     __file_path = "file.json"
-    __objects = dict()
+    __objects = {}
 
     def all(self):
         """returns the dictionary __objects
@@ -39,36 +41,28 @@ class FileStorage:
         """
         obj_name = obj.__class__.__name__
         obj_id = obj.id
-        obj_repr = "{}.{}".format(obj_name, obj_id)
-        if obj is not None:
+        if obj:
+            obj_repr = f"{obj_name}.{obj_id}"
             self.__objects[obj_repr] = obj
 
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)
         """
-        all_obj = dict()
-
-        for k, v in self.__objects.items():
-            all_obj[k] = v.to_dict()
-
-        a_dict = json.dumps(all_obj)
+        to_serialize = {k: v.to_dict() for k, v in self.__objects.items()}
 
         with open(self.__file_path, "w", encoding="utf-8") as f:
-            f.write(a_dict)
+            json.dump(to_serialize, f)
 
     def reload(self):
         """deserializes the JSON file to __objects
         """
-        file_name = self.__file_path
-        try:
-            with open(file_name, "r", encoding="utf-8") as f:
-                str_json = f.read()
-                dict_obj = json.loads(str_json)
 
-                for k in dict_obj:
-                    self.__objects[k] = classes[dict_obj[k]["__class__"]](
-                        **dict_obj[k]
-                    )
+        if os.path.exists(self.__file_path):
+            try:
+                with open(self.__file_path, "r", encoding="utf-8") as f:
+                    object_dict = json.load(f)
+                    for key, val in object_dict.items():
+                        self.__objects[key] = classes[val["__class__"]](**val)
 
-        except FileNotFoundError:
-            pass
+            except FileNotFoundError:
+                pass
