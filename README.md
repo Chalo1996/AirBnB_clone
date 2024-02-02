@@ -61,7 +61,7 @@ The tests package handles the testing of the models
 
 __*contributors*__
 * Emmanuel Chalo</br>
-[email](emusyoka759@gmail.com "ChaloEmail") | [twitter](https://twitter.com/gavcarter4 "ChaloTwitter") | [LinkedIn](linkedin.com/in/emmanuel-chalo-211336183 "ChaloLinkedIn")
+[email](https://mail.google.com/mail/emusyoka759@gmail.com "ChaloEmail") | [twitter](https://twitter.com/gavcarter4 "ChaloTwitter") | [LinkedIn](linkedin.com/in/emmanuel-chalo-211336183 "ChaloLinkedIn")
 
 * Chizoba Ugwuoke</br>
-[email](upc4you@gmail.com "ChizobaEmail")
+[email](https://mail.google.com/mail/upc4you@gmail.com "ChizobaEmail")
