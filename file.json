@@ -5,12 +5,6 @@
         "updated_at": "2024-02-03T22:25:45.956735",
         "__class__": "BaseModel"
     },
-    "BaseModel.3504e5c7-a4a4-4bde-a60b-19c0e81489f4": {
-        "id": "3504e5c7-a4a4-4bde-a60b-19c0e81489f4",
-        "created_at": "2024-02-03T22:25:50.817349",
-        "updated_at": "2024-02-03T22:25:50.817716",
-        "__class__": "BaseModel"
-    },
     "BaseModel.760c4603-ebc3-46cc-a3a7-8db16eead597": {
         "id": "760c4603-ebc3-46cc-a3a7-8db16eead597",
         "created_at": "2024-02-03T22:25:52.911599",
@@ -35,10 +29,65 @@
         "updated_at": "2024-02-03T22:26:41.485274",
         "__class__": "BaseModel"
     },
-    "BaseModel.6b102a4e-410a-4ba6-a3a4-32b5374dae06": {
-        "id": "6b102a4e-410a-4ba6-a3a4-32b5374dae06",
-        "created_at": "2024-02-03T22:26:47.308025",
-        "updated_at": "2024-02-03T22:26:47.308070",
+    "BaseModel.2e2c809d-61ee-4a75-8751-ff203e2c65f5": {
+        "id": "2e2c809d-61ee-4a75-8751-ff203e2c65f5",
+        "created_at": "2024-02-04T00:12:51.060915",
+        "updated_at": "2024-02-04T00:12:51.060927",
+        "DoB": 1996,
+        "name": "Emmanuel Chalo",
+        "Body Weight": 630.5,
         "__class__": "BaseModel"
+    },
+    "Place.14604635-b690-441f-99a4-aeb5da5e818c": {
+        "id": "14604635-b690-441f-99a4-aeb5da5e818c",
+        "created_at": "2024-02-04T00:38:24.947788",
+        "updated_at": "2024-02-04T00:38:24.947810",
+        "__class__": "Place"
+    },
+    "City.a916ea20-6998-499c-94d6-72675384a8be": {
+        "id": "a916ea20-6998-499c-94d6-72675384a8be",
+        "created_at": "2024-02-04T00:40:51.067164",
+        "updated_at": "2024-02-04T00:40:51.067182",
+        "name": "Nairobi",
+        "lat": 10.3,
+        "__class__": "City"
+    },
+    "User.b504f537-939c-44c8-b946-006a04620f6b": {
+        "id": "b504f537-939c-44c8-b946-006a04620f6b",
+        "created_at": "2024-02-04T00:57:02.867468",
+        "updated_at": "2024-02-04T00:57:02.867481",
+        "first_name": "Betty",
+        "last_name": "Bar",
+        "email": "airbnb@mail.com",
+        "password": "root",
+        "__class__": "User"
+    },
+    "User.d30feda1-b897-4d84-9f39-3f3f32a86a42": {
+        "id": "d30feda1-b897-4d84-9f39-3f3f32a86a42",
+        "created_at": "2024-02-04T00:57:02.868002",
+        "updated_at": "2024-02-04T00:57:02.868011",
+        "first_name": "John",
+        "email": "airbnb2@mail.com",
+        "password": "root",
+        "__class__": "User"
+    },
+    "User.7d3210a9-f03d-4e77-bfc2-aa1b4dd2be9f": {
+        "id": "7d3210a9-f03d-4e77-bfc2-aa1b4dd2be9f",
+        "created_at": "2024-02-04T00:57:34.628644",
+        "updated_at": "2024-02-04T00:57:34.628686",
+        "first_name": "Betty",
+        "last_name": "Bar",
+        "email": "airbnb@mail.com",
+        "password": "root",
+        "__class__": "User"
+    },
+    "User.269c29a4-e791-4c64-9cb2-1e4537e15411": {
+        "id": "269c29a4-e791-4c64-9cb2-1e4537e15411",
+        "created_at": "2024-02-04T00:57:34.629298",
+        "updated_at": "2024-02-04T00:57:34.629310",
+        "first_name": "John",
+        "email": "airbnb2@mail.com",
+        "password": "root",
+        "__class__": "User"
     }
 }

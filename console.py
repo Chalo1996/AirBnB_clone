@@ -6,7 +6,7 @@
 import cmd
 import os
 import shlex
-from cmd import sys
+import ast
 
 from models import storage
 from models.amenity import Amenity
@@ -33,10 +33,18 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
 
+    def _args_spliter(self, args):
+        """Helper method to help split arguments."""
+        return shlex.split(args)
+    
+    def _get_instance_key(self, cls_name, instance_id):
+        """Helper method to get the instance key in the storage."""
+        return f"{cls_name}.{instance_id}"
+
     def do_create(self, args):
         """Creates a new instance of BaseModel
         """
-        args = shlex.split(args)
+        args = self._args_spliter(args)
         if not args:
             print("** class name missing **")
         elif args[0] not in classes:
@@ -51,7 +59,7 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, args):
         """Prints the string representation of an instance
         """
-        args = shlex.split(args)
+        args = self._args_spliter(args)
         if not args:
             print("** class name missing **")
         elif args[0] not in classes:
@@ -60,7 +68,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         else:
             all_objects = storage.all()
-            key = f"{args[0]}.{args[1]}"
+            key = self._get_instance_key(args[0], args[1])
             if key in all_objects:
                 print(all_objects.get(key))
             else:
@@ -69,7 +77,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, args):
         """Deletes an instance based on the class name and id
         """
-        args = shlex.split(args)
+        args = self._args_spliter(args)
         if not args:
             print("** class name missing **")
         elif args[0] not in classes:
@@ -78,7 +86,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         else:
             all_objects = storage.all()
-            key = f"{args[0]}.{args[1]}"
+            key = self._get_instance_key(args[0], args[1])
             if key in all_objects:
                 del all_objects[key]
                 storage.save()
@@ -88,73 +96,47 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """ Prints all string representation of all instances
         """
-        my_list = list()
-
-        args = shlex.split(args)
-        if len(args) == 0:
-            for val in storage.all().values():
-                my_list.append(str(val))
-            print('[', end="")
-            print(', '.join(my_list), end="")
-            print(']')
-
-        elif args[0] in classes:
-            for arg_id in storage.all():
-                if args[0] in arg_id:
-                    my_list.append(str(storage.all()[arg_id]))
-
-            print('[', end="")
-            print(', '.join(my_list), end="")
-            print(']')
-
-        else:
+        args = self._args_spliter(args)
+        if args[0] not in classes:
             print("** class doesn't exist **")
+        elif args[0] not in classes:
+            print("** class doesn't exist **")
+        else:
+            all_objects = storage.all()
+            objects_list = []
+            for key, value in all_objects.items():
+                if args[0] in key:
+                    objects_list.append(str(value))
+            print(objects_list)
 
     def do_update(self, args):
         """Updates an instance based on the class name and id
         """
-        int_lst = [
-            "number_rooms", "number_bathrooms", "max_guest", "price_by_night"
-        ]
 
-        float_lst = ["latitude", "longitude"]
-
-        args = shlex.split(args)
-        if len(args) == 0:
+        args = self._args_spliter(args)
+        if not args:
             print("** class name missing **")
-            return False
-
-        elif args[0] in classes:
-            if len(args) > 1:
-                arg_id = "{}.{}".format(args[0], args[1])
-                if arg_id in storage.all():
-                    if len(args) > 2:
-                        if len(args) > 3:
-                            if args[0] == "place":
-                                if args[2] in int_lst:
-                                    try:
-                                        args[3] = int(args[3])
-                                    except Exception:
-                                        args[3] = 0.0
-                                elif args[2] in float_lst:
-                                    try:
-                                        args[3] = float(args[3])
-                                    except Exception:
-                                        args[3] = 0.0
-                            setattr(
-                                storage.all()[arg_id], args[2], args[3]
-                            )
-                            storage.all()[arg_id].save()
-                        else:
-                            print("** value missing **")
-                    else:
-                        print("** attribute name missing **")
-                else:
-                    print("** no instance found **")
-            else:
-                print("** instance id missing **")
-        else:
+        elif args[0] not in classes:
             print("** class doesn't exist **")
+        elif len(args) < 2:
+            print("** instance id missing **")
+        else:
+            all_objects = storage.all()
+            key = self._get_instance_key(args[0], args[1])
+            if key in all_objects:
+                if len(args) < 3:
+                    print("** attribute name missing **")
+                elif len(args) < 4:
+                    print("** value missing **")
+                else:
+                    try:
+                        converted_val = ast.literal_eval(args[3])
+                    except (ValueError, SyntaxError):
+                        converted_val = args[3]
+                    setattr(
+                        all_objects[key], args[2], converted_val
+                    )
+                    storage.save()
 
     def do_shell(self, shellcmd):
         "Run a shell command"
