@@ -6,10 +6,9 @@
 import cmd
 import os
 import shlex
-from datetime import datetime
 from cmd import sys
 
-import models
+from models import storage
 from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.city import City
@@ -19,74 +18,72 @@ from models.state import State
 from models.user import User
 
 classes = {
-    "BaseModel": BaseModel, "User": User, "State": State,
-    "City": City, "Amenity": Amenity, "Place": Place, "Review": Review
+    "BaseModel": BaseModel,
+    "User": User,
+    "State": State,
+    "City": City,
+    "Amenity": Amenity,
+    "Place": Place,
+    "Review": Review
 }
 
 
 class HBNBCommand(cmd.Cmd):
     """A console to interact with my database
     """
-    prevCmd = ""
     prompt = "(hbnb) "
 
     def do_create(self, args):
         """Creates a new instance of BaseModel
         """
         args = shlex.split(args)
-        if len(args) == 0:
+        if not args:
             print("** class name missing **")
-            return False
-
-        if args[0] in classes:
-            my_instance = classes[args[0]]()
-
-        else:
+        elif args[0] not in classes:
             print("** class doesn't exist **")
-            return False
-        print(my_instance.id)
-        BaseModel.save()
+        else:
+            cls_object = globals().get(args[0], None)
+            if cls_object:
+                instance = cls_object()
+                instance.save()
+                print(instance.id)
 
     def do_show(self, args):
         """Prints the string representation of an instance
         """
         args = shlex.split(args)
-        if len(args) == 0:
+        if not args:
             print("** class name missing **")
-            return False
-
-        if args[0] in classes:
-            if len(args) > 1:
-                arg_id = "{}.{}".format(args[0], args[1])
-                if arg_id in models.storage.all():
-                    print(models.storage.all()[arg_id])
-                else:
-                    print("** no instance found **")
-            else:
-                print("** instance id missing **")
-        else:
+        elif args[0] not in classes:
             print("** class doesn't exist **")
+        elif len(args) < 2:
+            print("** instance id missing **")
+        else:
+            all_objects = storage.all()
+            key = f"{args[0]}.{args[1]}"
+            if key in all_objects:
+                print(all_objects.get(key))
+            else:
+                print("** no instance found **")
 
     def do_destroy(self, args):
         """Deletes an instance based on the class name and id
         """
         args = shlex.split(args)
-        if len(args) == 0:
+        if not args:
             print("** class name missing **")
-            return False
-
-        if args[0] in args:
-            if len(args) > 1:
-                args_id = "{}.{}".format(args[0], args[1])
-                if args_id in models.storage.all():
-                    models.storage.all().pop(args_id)
-                    models.storage.save()
-                else:
-                    print("** no instance found **")
-            else:
-                print("** instance id missing **")
-        else:
+        elif args[0] not in classes:
             print("** class doesn't exist **")
+        elif len(args) < 2:
+            print("** instance id missing **")
+        else:
+            all_objects = storage.all()
+            key = f"{args[0]}.{args[1]}"
+            if key in all_objects:
+                del all_objects[key]
+                storage.save()
+            else:
+                print("** no instance found **")
 
     def do_all(self, args):
         """ Prints all string representation of all instances
@@ -95,16 +92,16 @@ class HBNBCommand(cmd.Cmd):
 
         args = shlex.split(args)
         if len(args) == 0:
-            for val in models.storage.all().values():
+            for val in storage.all().values():
                 my_list.append(str(val))
             print('[', end="")
             print(', '.join(my_list), end="")
             print(']')
 
         elif args[0] in classes:
-            for arg_id in models.storage.all():
+            for arg_id in storage.all():
                 if args[0] in arg_id:
-                    my_list.append(str(models.storage.all()[arg_id]))
+                    my_list.append(str(storage.all()[arg_id]))
 
             print('[', end="")
             print(', '.join(my_list), end="")
@@ -130,7 +127,7 @@ class HBNBCommand(cmd.Cmd):
         elif args[0] in classes:
             if len(args) > 1:
                 arg_id = "{}.{}".format(args[0], args[1])
-                if arg_id in models.storage.all():
+                if arg_id in storage.all():
                     if len(args) > 2:
                         if len(args) > 3:
                             if args[0] == "place":
@@ -145,9 +142,9 @@ class HBNBCommand(cmd.Cmd):
                                     except Exception:
                                         args[3] = 0.0
                             setattr(
-                                models.storage.all()[arg_id], args[2], args[3]
+                                storage.all()[arg_id], args[2], args[3]
                             )
-                            models.storage.all()[arg_id].save()
+                            storage.all()[arg_id].save()
                         else:
                             print("** value missing **")
                     else:
@@ -161,34 +158,17 @@ class HBNBCommand(cmd.Cmd):
 
     def do_shell(self, shellcmd):
         "Run a shell command"
-        output = os.popen(shellcmd).read()
-        print(output)
-        self.prevCmd = output
-
-    def do_echo(self, last):
-        "Run previous command"
-        print(last.replace('$last', self.prevCmd))
+        os.system(shellcmd)
 
     def do_quit(self, line):
         """Quit command to exit the program
         """
-        while True:
-            sys.exit()
+        return True
 
     def do_EOF(self, line):
         """Exits the console
         """
-        while True:
-            sys.exit()
-
-    def emptyline(arg) -> bool:
-        """Do nothing.
-
-        An empty line + ENTER does nothing.
-        """
-        while True:
-            if arg:
-                break
+        return True
 
 
 if __name__ == "__main__":

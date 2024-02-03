@@ -16,8 +16,12 @@ from models.review import Review
 
 
 classes = {
-    "State": State, "Amenity": Amenity, "Review": Review,
-    "BaseModel": BaseModel, "City": City, "Place": Place, "User": User
+    "State": State,
+    "Amenity": Amenity,
+    "Review": Review,
+    "BaseModel": BaseModel,
+    "City": City, "Place": Place,
+    "User": User
 }
 
 
@@ -28,8 +32,12 @@ class FileStorage:
         __file_path: string - path to the json file
         __objects: dictionary - dictionary storing all the models
     """
-    __file_path = "file.json"
+    __file_path = os.path.abspath("file.json")
     __objects = {}
+
+    def __init__(self) -> None:
+        """Instantiates the FileStorage class"""
+        pass
 
     def all(self):
         """returns the dictionary __objects
@@ -62,7 +70,9 @@ class FileStorage:
                 with open(self.__file_path, "r", encoding="utf-8") as f:
                     object_dict = json.load(f)
                     for key, val in object_dict.items():
-                        self.__objects[key] = classes[val["__class__"]](**val)
+                        obj_name = val["__class__"]
+                        obj = classes[obj_name]
+                        self.__objects[key] = obj(**val)
 
             except FileNotFoundError:
                 pass
