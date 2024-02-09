@@ -36,7 +36,7 @@ class HBNBCommand(cmd.Cmd):
     def _args_spliter(self, args):
         """Helper method to help split arguments."""
         return shlex.split(args)
-    
+
     def _get_instance_key(self, cls_name, instance_id):
         """Helper method to get the instance key in the storage."""
         return f"{cls_name}.{instance_id}"
@@ -97,17 +97,14 @@ class HBNBCommand(cmd.Cmd):
         """ Prints all string representation of all instances
         """
         args = self._args_spliter(args)
-        if args[0] not in classes:
-            print("** class doesn't exist **")
+        if not args:
+            print("** class name missing **")
         elif args[0] not in classes:
             print("** class doesn't exist **")
         else:
-            all_objects = storage.all()
-            objects_list = []
-            for key, value in all_objects.items():
-                if args[0] in key:
-                    objects_list.append(str(value))
-            print(objects_list)
+            obj_name = classes[args[0]]
+            all_objects = obj_name.all()
+            print(all_objects)
 
     def do_update(self, args):
         """Updates an instance based on the class name and id

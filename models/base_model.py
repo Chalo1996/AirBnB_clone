@@ -62,3 +62,18 @@ class BaseModel:
         my_dict["updated_at"] = iso_updated_at
         my_dict["__class__"] = self.__class__.__name__
         return (my_dict)
+
+    @staticmethod
+    def return_cls_objects(obj):
+        """Appends into a list all the objects of the passed obj argument"""
+        all_objects = models.storage.all()
+        _all_objects = []
+        for key, value in all_objects.items():
+            if obj.__name__ == key.split(".")[0]:
+                _all_objects.append(str(value))
+        return _all_objects
+
+    @classmethod
+    def all(cls):
+        """Return all objects for this class"""
+        return cls.return_cls_objects(cls)

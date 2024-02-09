@@ -9,10 +9,10 @@ from models.base_model import BaseModel
 class User(BaseModel):
     """Inherits from BaseModel
     """
-    email = str()
-    password = str()
-    first_name = str()
-    last_name = str()
+    email = ""
+    password = ""
+    first_name = ""
+    last_name = ""
 
     def __init__(self, *args, **kwargs):
         """User class constructor

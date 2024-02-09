@@ -9,7 +9,7 @@ from models.base_model import BaseModel
 class Amenity(BaseModel):
     """Inherits from BaseModel
     """
-    name = str()
+    name = ""
 
     def __init__(self, *args, **kwargs):
         """Amenity class Constructor
