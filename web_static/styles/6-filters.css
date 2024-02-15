@@ -22,14 +22,16 @@
     justify-content: center;
 }
 
-.search-button:hover {
-    opacity: 90%;
-}
-
 .locations, .amenities {
     height: 100%;
     width: 25%;
     padding-left: 50px;
+}
+
+.locations h4,
+.amenities h4 {
+    font-weight: 400;
+    line-height: 1px;
 }
 
 .locations {

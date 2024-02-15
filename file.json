@@ -107,5 +107,33 @@
         "created_at": "2024-02-09T17:26:03.182520",
         "updated_at": "2024-02-09T17:26:03.182535",
         "__class__": "Amenity"
+    },
+    "State.d427aaf4-bd38-40ce-a57e-056af4e4e9a8": {
+        "id": "d427aaf4-bd38-40ce-a57e-056af4e4e9a8",
+        "created_at": "2024-02-09T17:41:14.984703",
+        "updated_at": "2024-02-09T17:41:14.984715",
+        "__class__": "State"
+    },
+    "BaseModel.9891cd32-c3e2-4ec5-9b9f-eaa747cb2531": {
+        "id": "9891cd32-c3e2-4ec5-9b9f-eaa747cb2531",
+        "created_at": "2024-02-11T14:59:52.014334",
+        "updated_at": "2024-02-11T14:59:52.014349",
+        "__class__": "BaseModel"
+    },
+    "Amenity.2cbe1a9d-6e89-4e64-a23f-5881b190ebdb": {
+        "id": "2cbe1a9d-6e89-4e64-a23f-5881b190ebdb",
+        "created_at": "2024-02-11T15:00:04.487578",
+        "updated_at": "2024-02-11T15:00:04.487599",
+        "__class__": "Amenity"
+    },
+    "User.79188397-1e53-40b4-ac1f-3d744a199841": {
+        "id": "79188397-1e53-40b4-ac1f-3d744a199841",
+        "created_at": "2024-02-11T15:00:15.910360",
+        "updated_at": "2024-02-11T15:00:15.910386",
+        "name": "David Mutune",
+        "phone": "0720000000",
+        "Place of residence": "London",
+        "Age": 27,
+        "__class__": "User"
     }
 }

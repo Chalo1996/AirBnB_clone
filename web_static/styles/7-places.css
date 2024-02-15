@@ -7,6 +7,10 @@
     justify-content: center;
 }
 
+.search-button {
+    cursor: pointer;
+}
+
 .places > h1 {
     font-size: 30px;
     padding-left: 20px;
@@ -26,4 +30,22 @@
 
 .places > article > h2 {
     font-size: 30px;
+}
+
+.locations:hover .popover,
+.amenities:hover .popover {
+    display: block;
+}
+
+.popover {
+    width: 100%;
+    background-color: #FAFAFA;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    padding: 20px;
+    list-style: none;
+    display: none;
+    z-index: 2;
+    top: calc(100% + 10px);
+    left: 0;
 }
