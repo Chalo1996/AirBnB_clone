@@ -1,5 +1,8 @@
 # __The AirBnB Clone Project One__
 
+## What is it?
+This is a the console(terminal) used to execute tasks which include the CRUD operations. The storage engine is the file storage - JSON.
+
 ## __The Console__
 ---
 ```
