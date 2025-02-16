@@ -1,12 +1,12 @@
-The AirBnB Clone Project One
+The AirBnB Clone Project One<br/>
 What is it?
-This is the console(terminal) used to execute tasks, including CRUD operations. The storage engine is the file storage—JSON.
-The Console
-Commands to interact with the console:
+This is the console(terminal) used to execute tasks, including CRUD operations. The storage engine is the file storage—JSON.<br/>
+The Console<br/>
+Commands to interact with the console:<br/>
 
-Clone the repository.
-Navigate to the base directory of the AirBnB clone project.
-Run: ./console.py to launch it in interactive mode or echo "help" | ./console.py in non-interactive mode.
+- Clone the repository.
+- Navigate to the base directory of the AirBnB clone project.
+- Run: `./console.py` to launch it in interactive mode or `echo "help" | ./console.py` in non-interactive mode.
 
 To create an instance:
 ```bash
