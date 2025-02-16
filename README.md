@@ -41,15 +41,18 @@ update <classname> <instance_id> <attribute_name> <attribute_value>
 update BaseModel 1234-1234-1234 email "aibnb@mail.com"
 ```
 Additional commands:
-
+```bash
 help or ? - Get help about all available commands
 Shell commands (preceded by '!'): !pwd, !ls, !clear
 echo $last - Run the previous command
 quit or EOF - Exit the console
+```
 
 Packages
+```text
 The models package handles all creation of objects and their serialization and deserialization.
 The tests package handles the testing of the models.
+```
 Contributors
 
 - Emmanuel Chalo - [email](mailto:emusyoka759@gmail.com)
