@@ -135,5 +135,22 @@
         "Place of residence": "London",
         "Age": 27,
         "__class__": "User"
+    },
+    "BaseModel.9a1de06b-be5e-45c9-af7d-3dc66a63b2ca": {
+        "id": "9a1de06b-be5e-45c9-af7d-3dc66a63b2ca",
+        "created_at": "2025-04-15T08:51:39.236799",
+        "updated_at": "2025-04-15T08:51:39.236799",
+        "__class__": "BaseModel"
+    },
+    "City.edc3d2ec-18a2-479e-8a3d-f10f49923a76": {
+        "id": "edc3d2ec-18a2-479e-8a3d-f10f49923a76",
+        "created_at": "2025-04-15T08:59:18.311117",
+        "updated_at": "2025-04-15T08:59:18.311117",
+        "name": "Kisumu",
+        "lat": 37.9,
+        "longitude": 22.3,
+        "YouCanAddAnyAttribute": "Yes",
+        "WhatIfTomorrow": "Exactly",
+        "__class__": "City"
     }
 }
