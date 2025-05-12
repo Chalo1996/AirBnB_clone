@@ -152,5 +152,23 @@
         "YouCanAddAnyAttribute": "Yes",
         "WhatIfTomorrow": "Exactly",
         "__class__": "City"
+    },
+    "City.43480fd3-3666-4c97-bfc5-35f5add99442": {
+        "id": "43480fd3-3666-4c97-bfc5-35f5add99442",
+        "created_at": "2025-05-11T10:39:22.295657",
+        "updated_at": "2025-05-11T10:39:22.295657",
+        "name": "Nakuru",
+        "population": 2500000,
+        "State": "Rift-Valley",
+        "__class__": "City"
+    },
+    "User.01bad747-ef71-4397-8148-e1c31618529e": {
+        "id": "01bad747-ef71-4397-8148-e1c31618529e",
+        "created_at": "2025-05-12T11:21:56.630900",
+        "updated_at": "2025-05-12T11:21:56.630900",
+        "name": "Chalo",
+        "age": 26,
+        "networth": 2777777.99,
+        "__class__": "User"
     }
 }
